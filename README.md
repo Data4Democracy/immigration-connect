@@ -4,16 +4,19 @@
 
 ## Project Description
 
-Building tools to connect and coordinate efforts to help those affected by immigration law changes
+Building tools to connect and coordinate efforts to help those affected by immigration law changes.
 
 ## Project Leads
 
-
+* Tyler Richards @tylerjrichards
+* Abhijeet Chavan @chavan
+* Jonathan Torrez @jtorrez
 
 ## Maintainers (people with write access)
-* Person 1
-* Person 2
-* Person 3
+
+* Tyler Richards @tylerjrichards
+* Abhijeet Chavan @chavan
+* Jonathan Torrez @jtorrez
 
 ## Data
 
