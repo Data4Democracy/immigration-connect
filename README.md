@@ -1,10 +1,10 @@
 # immigration-connect
 
-**Slack:** #immigration-connect
-
 ## Project Description
 
 Building tools to connect and coordinate efforts to help those affected by immigration law changes.
+
+**Slack:** #immigration-connect
 
 ## Project Leads
 
@@ -23,7 +23,7 @@ Building tools to connect and coordinate efforts to help those affected by immig
 [https://data.world/data4democracy/[project-name]](link)   
 _Note: Create dataset for project in data.world and link it here._
 
-## Getting started:  -- Outline each project will have it's own
+## Getting started:
 * We welcome contributions from first timers / leave this out if you're not "beginner friendly"
 * Browse our help wanted issues. See if there is anything that interests you.
 * Core maintainers and project leads are responsible for reviewing and merging all pull requests. In order to prevent frustrations with your first PR we recommend you reach out to our core maintainers who can help you through your first PR.
