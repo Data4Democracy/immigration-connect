@@ -4,19 +4,18 @@
 
 Building tools to connect and coordinate efforts to help those affected by immigration law changes.
 
-**Slack:** #immigration-connect
+**Slack:** [#immigration-connect](https://datafordemocracy.slack.com/messages/immigration-connect/)
 
 ## Project Leads
 
-* Tyler Richards @tylerjrichards
-* Abhijeet Chavan @chavan
-* Jonathan Torrez @jtorrez
+* Tyler Richards [@tylerjrichards](https://datafordemocracy.slack.com/messages/@tylerjrichards/)
+* Abhijeet Chavan [@jtorrez](https://datafordemocracy.slack.com/messages/@jtorrez/)
+* Jonathan Torrez [@chavan](https://datafordemocracy.slack.com/messages/@chavan/)
 
 ## Maintainers (people with write access)
 
-* Tyler Richards @tylerjrichards
-* Abhijeet Chavan @chavan
-* Jonathan Torrez @jtorrez
+* Project leads (see above)
+* ...
 
 ## Data
 
