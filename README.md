@@ -9,8 +9,8 @@ Building tools to connect and coordinate efforts to help those affected by immig
 ## Project Leads
 
 * Tyler Richards [@tylerjrichards](https://datafordemocracy.slack.com/messages/@tylerjrichards/)
-* Abhijeet Chavan [@jtorrez](https://datafordemocracy.slack.com/messages/@jtorrez/)
-* Jonathan Torrez [@chavan](https://datafordemocracy.slack.com/messages/@chavan/)
+* Abhijeet Chavan [@chavan](https://datafordemocracy.slack.com/messages/@chavan/)
+* Jonathan Torrez [@jtorrez](https://datafordemocracy.slack.com/messages/@jtorrez/)
 
 ## Maintainers (people with write access)
 
