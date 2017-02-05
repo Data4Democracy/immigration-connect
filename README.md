@@ -20,7 +20,7 @@ Building tools to connect and coordinate efforts to help those affected by immig
 ## Timeline
 
 1. Brainstorming and project proposals
-  * Read over the [priority needs](https://github.com/Data4Democracy/immigration-connect/NILC_priorities.md) that the National Immigration Law Center (NILC) has laid out for us.
+  * Read over the [priority needs](https://github.com/Data4Democracy/immigration-connect/blob/master/NILC_priorities.md) that the National Immigration Law Center (NILC) has laid out for us.
   * Join the conversation about possible solutions in the [Slack channel](https://datafordemocracy.slack.com/messages/immigration-connect/)
   * [Start and tag issues](https://github.com/Data4Democracy/immigration-connect/issues) in this this repo to for your questions, proposals, and other tasks.
 2. Phone call with the NILC to confirm needs and present proposals
