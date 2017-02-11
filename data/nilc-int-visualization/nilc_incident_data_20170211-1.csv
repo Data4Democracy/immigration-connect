@@ -1,0 +1,6 @@
+ID,DATE,LOCAL TIME,NAME,STREET ADDRESS,LOCATION (if no address),MIN-PERSONS ,MAX-PERSONS
+20170211-01,2/11/2017,9:00,Raid at factory,"900 Exposition Blvd., Los Angeles, CA 900007",,7,12
+20170211-02,2/11/2017,11:30,Arrests at train station,"250 N Lamar Blvd, Austin, TX 78703",,3,5
+20170211-03,2/11/2017,,Atlanta immigration protest arrests,,Downtown Atlanta,27,32
+20170212-01,2/12/2017,10:15,Arrests at mall,"5000 S Arizona Mills Cir, Tempe, AZ 85282",,4,9
+20170212-02,2/12/2017,15:00,Family detained at airport,"1 Saarinen Cir, Dulles, VA 20166",,4,
