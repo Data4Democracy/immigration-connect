@@ -1,0 +1,25 @@
+install.packages("ggmap")
+library(ggmap)
+location = "practiceNILC.csv"
+mydata = read.csv(location, nrows = 5)
+mydata$avg <- (mydata$Max_affected + mydata$Min_affected) * .5
+mydata$Location <- as.character(mydata$Location)
+for ( i in 1:nrow(mydata)){
+  latlon = geocode(mydata$Location[i])
+  mydata$lon[i] = as.numeric(latlon[1])
+  mydata$lat[i] = as.numeric(latlon[2])
+}
+
+mapping <- data.frame(mydata$avg, mydata$lon, mydata$lat)
+colnames(mapping) = c('Number Affected', 'lon', 'lat')
+
+
+usa_center = as.numeric(geocode("United States"))
+
+USAMap = ggmap(get_googlemap(center=usa_center, scale=2, zoom=4), extent="normal")
+USAMap = get_map(location = "United States")
+
+USAMap + 
+  geom_point(aes(x=lon, y=lat), data=mapping, col="orange", alpha=0.4, size=mapping$`Number Affected`) +  
+  scale_size_continuous(range=range(mapping$`Number Affected`))
+
