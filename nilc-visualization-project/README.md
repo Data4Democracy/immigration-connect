@@ -45,5 +45,5 @@ The final product is deployed at the [site-tbd]().
 
 
 <img src="images/logos/r_logo.png" width="120">
-<img src="images/logos/r_studio_log.png" width="120">
-<img src="images/logos/leaflet_log.png" width="120">
+<img src="images/logos/r_studio_logo.png" width="120">
+<img src="images/logos/leaflet_logo.png" width="240">
