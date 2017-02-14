@@ -6,10 +6,9 @@ library(htmlwidgets)
 library(dplyr)
 library(geocode)
 
-df <- read_csv('https://raw.githubusercontent.com/Data4Democracy/immigration-connect/master/data/nilc-int-visualization/nilc_incident_data_20170211-1.csv',
-               col_names=c('ID', 'DateStr', 'LocalTime', 'Description', 'Address', 'Location', 'MinPersons', 'MaxPersons'),
-               col_types=cols_only(col_character(), col_character(), col_character(), col_character(), col_character(), col_character(),
-                                   col_integer(), col_integer()), skip=1)
+df <- read_csv('https://docs.google.com/spreadsheets/d/1Ho-Vhs8k3y5Dm8QvJHRlj8h8In9vcN0jeH5SgT-Y2Fw/pub?gid=0&single=true&output=csv', col_types=cols_only(col_character(), col_character(), col_character(), col_character(), col_character(), col_character(), col_integer(), col_integer()))
+colnames(df) <- c('ID', 'DateStr', 'LocalTime', 'Description', 'Address', 'Location', 'MinPersons', 'MaxPersons')
+
 
 geocodeables <- df %>%
   select(ID, Address) %>%
