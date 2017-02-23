@@ -30,6 +30,7 @@ We are also very open to connecting with any other organizations whose work focu
 
 * [Volunteer Bank/Email Parsing](https://github.com/Data4Democracy/immigration-connect/tree/master/volunteer-bank)
 * [Champion System](https://github.com/Data4Democracy/immigration-connect/tree/master/champion-system)
+* [ICE-dashboard](https://github.com/Data4Democracy/immigration-connect/tree/master/ICE-dashboard)
 
 ### Completed
 
