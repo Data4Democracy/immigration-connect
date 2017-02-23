@@ -42,7 +42,7 @@ if (nrow(NILCFINAL)>0){
                 body = message,
                 smtp = list(host.name = "smtp.gmail.com", port = 465, 
                             user.name = "RaidAlertFSU@gmail.com",            
-                            passwd = "hackfsu17", ssl = TRUE),
+                            passwd = "", ssl = TRUE),
                 authenticate = TRUE,
                 send = TRUE)
     }
@@ -57,7 +57,7 @@ if (nrow(NILCFINAL)>0){
                 body = message,
                 smtp = list(host.name = "smtp.gmail.com", port = 465, 
                             user.name = "RaidAlertFSU@gmail.com",            
-                            passwd = "hackfsu17", ssl = TRUE),
+                            passwd = "", ssl = TRUE),
                 authenticate = TRUE,
                 send = TRUE)
     }
