@@ -1,5 +1,3 @@
-.libPaths(c(.libPaths(), "r-packages"))
-
 library(shiny)
 library(leaflet)
 
