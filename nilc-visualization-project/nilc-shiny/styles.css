@@ -1,0 +1,10 @@
+/* Customize fonts */
+body, label, input, button, select { 
+  font-weight: 200;
+}
+h1, h2, h3, h4 { font-weight: 400; }
+
+#table {
+  font-weight: 200;
+  font-size: 80%;
+}
