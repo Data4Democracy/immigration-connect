@@ -25,12 +25,13 @@ function(input, output, session) {
   geocodeables <- df %>%
     mutate(gAddress=trimws(paste0(ifelse(!is.na(Locality), paste0(Locality, ', '), ''), State, ' ', Zip))) %>%
     mutate(gAddress=ifelse(!is.na(Address), paste0(Address, ', ', gAddress), gAddress)) %>%
+    mutate(OriginalAddress=gAddress) %>%
     mutate(gAddress=ifelse(!is.na(Zip) & is.na(Address) & is.na(Locality), trimws(Zip), gAddress)) %>%
     filter(!is.na(gAddress)) %>%
-    select(ID, gAddress, Name, Persons, Notes, Date)
+    select(ID, gAddress, Name, Persons, Notes, Date, OriginalAddress)
   
   df <- cbind(geocode(geocodeables$gAddress, cache='geocoder-cache.rds'), geocodeables) %>%
-    select(ID, Latitude, Longitude, gAddress, Name, Persons, Notes, Date) %>%
+    select(ID, Latitude, Longitude, gAddress, Name, Persons, Notes, Date, OriginalAddress) %>%
     filter(!is.na(Latitude)) %>% filter(!is.na(Longitude)) %>%
     mutate(gAddress=gsub(x=gAddress, pattern='NA', replacement=''))
   
@@ -42,13 +43,14 @@ function(input, output, session) {
   addMapMarkers <- function(map, lng, lat, popup) {
     addMarkers(map,
                data=getMapData(map) %>% mutate(Date=ifelse(is.na(Date), 'Unknown Date', as.character(Date)),
-                               Persons=ifelse(is.na(Persons), 'Unknown # of persons', as.character(Persons))),
-               lng=~Longitude, lat=~Latitude, popup=~paste0(Name, '<br>', Date, '<br>', gAddress, '<br># of people: ', Persons))
+                               Persons=ifelse(is.na(Persons), 'Unknown # of persons', as.character(Persons)),
+                               PopupText=paste0(Name, '<br>', Date, '<br>', OriginalAddress, '<br># of people: ', Persons)),
+               lng=~Longitude, lat=~Latitude, popup=~PopupText)
   }
   
   getDataForDisplay <- function(df) {
-    select(df, Date, gAddress, Name, Persons) %>%
-      rename(Address=gAddress)
+    select(df, Date, OriginalAddress, Name, Persons) %>%
+      rename(Address=OriginalAddress)
   }
   
   output$map <- renderLeaflet({
