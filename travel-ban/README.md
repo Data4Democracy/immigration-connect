@@ -28,6 +28,35 @@ For further clean up check
 is a `scrapy spider` that can be used to scrape all the press briefings from
 the white house. 
 
+# Tweets
+## [Tweets by The Trump Administration](https://github.com/alejandrox1/muslim_ban/tree/master/users)
+This directory containes all the tweets from 
+```
+screen_names = [
+        'realDonaldTrump', 'POTUS', 'WhiteHouse', 'PressSec',
+        'RudyGiuliani', 'StephenBannon', 'jeffsessions', 'KellyannePolls',
+        'GenFlynn',
+        #'NBCNews', 'CNN', 'cnnbrk', 'FoxNews', 'AP', 'nytimes', 
+        #'BreitbartNews', 'guardian',
+                   ]
+```
+
+## [Biased Tweets](https://github.com/alejandrox1/muslim_ban/tree/master/tweets)
+This directory contains all the tweets from the `screen_names` listed above that also contain the following keywords:
+```
+topics = [
+        'muslims', 'muslim', 'islam', 'islamic', 'mosque', 'mosques',
+        'radical', 'radicals', 'terrorism', 'terrorists', 'terrorist', 
+        'terror', 'ISIS', 
+        'travel', 'ban', 'eo', 'executive', 'order','orders', 'screening', 
+        'resist', 'protect', 'protection',
+        'airport', 'airports', 'visa', 'visas','target', 'targets',  
+        'refugee', 'refugees', 'middle', 'east', 'eastern', 'easterners'
+        'Iran', 'Iraq', 'Libya', 'Somalia', 'Sudan', 'Yemen', 'Syria',
+             ]
+```
+
+
 # SET UP
 To search obtain tweets we use a `Python Selenium`.
 In order to get `Selenium` working you will need to install `chromedriver` for
