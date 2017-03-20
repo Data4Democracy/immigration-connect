@@ -1,10 +1,7 @@
 # Muslim Ban
-Compile and analyze public statements by D. Trump, his administration officials,
-associates, surrogates, and others, to prove discriminatory intent.
+Compile and analyze public statements by D. Trump, his administration officials, 
+associates, surrogates, and others, to prove discriminatory intent. 
 (Including statements made during the campaign and earlier.)
-
-## Credit
-The code and the instructions for the use of the tools in this repo were created by [Jorge Alarcon Ochoa](https://github.com/alejandrox1) and the original repo can be found [here](https://github.com/alejandrox1/muslim_ban).
 
 # USE                                                                           
 One can use [get_all_user_tweets](https://github.com/alejandrox1/muslim_ban/blob/master/mining_functions.py#L186)
@@ -29,7 +26,7 @@ For further clean up check
 ## White House Press
 [whpress](https://github.com/alejandrox1/muslim_ban/blob/master/whpress/whpress/spiders/blog.py)
 is a `scrapy spider` that can be used to scrape all the press briefings from
-the white house.
+the white house. 
 
 # SET UP
 To search obtain tweets we use a `Python Selenium`.
@@ -39,7 +36,7 @@ In order to get `Selenium` working you will need to install `chromedriver` for
 ## Firefox
 ```
 cd ~/bin
-wget https://github.com/mozilla/geckodriver/releases/download/v0.15.0/geckodriver-v0.15.0-linux64.tar.gz
+wget https://github.com/mozilla/geckodriver/releases/download/v0.15.0/geckodriver-v0.15.0-linux64.tar.gz 
 tar -xvzf geckodriver-v0.15.0-linux64.tar.gz
 rm geckodriver-v0.15.0-linux64.tar.gz
 chmod +x geckodriver
