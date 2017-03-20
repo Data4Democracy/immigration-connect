@@ -15,7 +15,7 @@ Building tools to connect and coordinate efforts to help those affected by immig
 ## Maintainers (people with write access)
 
 * Project leads (see above)
-* ...
+* Jorge Alarcon [@alarcj](https://datafordemocracy.slack.com/messages/@alarcj/)
 
 ## Projects
 
@@ -35,6 +35,7 @@ We are also very open to connecting with any other organizations whose work focu
 ### Completed
 
 * [NILC Interactive Visualization](https://github.com/Data4Democracy/immigration-connect/tree/master/nilc-visualization-project)
+* [travel-ban](https://github.com/Data4Democracy/immigration-connect/tree/master/travel-ban)
 
 ## Getting started:
 * **"First-timers" are welcome!** Whether you're trying to learn data science, hone your coding skills, or get started collaborating over the web, we're happy to help. *(Sidenote: with respect to Git and GitHub specifically, our [github-playground](https://github.com/Data4Democracy/github-playground) repo and the [#github-help](https://datafordemocracy.slack.com/messages/github-help/) Slack channel are good places to start.)*
