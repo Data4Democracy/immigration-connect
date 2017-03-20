@@ -15,22 +15,22 @@ Building tools to connect and coordinate efforts to help those affected by immig
 ## Maintainers (people with write access)
 
 * Project leads (see above)
-* ...
+* [@alarcj](https://datafordemocracy.slack.com/messages/@alarcj/)
 
 ## Projects
 
 Project leads have a weekly meeting with the National Immigration Law Center (NILC) and will share updates from those meetings and update projects based on the needs of the NILC. All active and completed projects can be found below and you can also browse our current [help wanted issues](https://github.com/Data4Democracy/immigration-connect/issues) for more information.
 
-We are also very open to connecting with any other organizations whose work focuses on immigration issues, please contact any of the project leads if you feel we could support your work:
+We are also very open to connecting with any other organizations whose work focuses on immigration issues, please contact Tyler, who is handling new organization requests, if you feel we could support your work:
 
-* Official emails coming soon...
-* ...
+* tylerjrichards@gmail.com
 
 ### Active
 
 * [Volunteer Bank/Email Parsing](https://github.com/Data4Democracy/immigration-connect/tree/master/volunteer-bank)
 * [Champion System](https://github.com/Data4Democracy/immigration-connect/tree/master/champion-system)
 * [ICE-dashboard](https://github.com/Data4Democracy/immigration-connect/tree/master/ICE-dashboard)
+* [Travel-Ban](https://github.com/Data4Democracy/immigration-connect/tree/master/travel-ban)
 
 ### Completed
 
