@@ -2,7 +2,7 @@
 
 ## Project Description
 
-Building tools to connect and coordinate efforts to help those affected by immigration law changes.
+Collecting, analyzing, and modeling data related to immigration. We're also building tools (visualizations, email parsers, matching algorithms to connect to connect pro bono lawyers with immigrants in need) to support the work of organizations working on immigration law and other immigration related issues.
 
 **Slack:** [#immigration-connect](https://datafordemocracy.slack.com/messages/immigration-connect/)
 
@@ -31,12 +31,11 @@ We are also very open to connecting with any other organizations whose work focu
 * [Volunteer Bank/Email Parsing](https://github.com/Data4Democracy/immigration-connect/tree/master/volunteer-bank)
 * [Champion System](https://github.com/Data4Democracy/immigration-connect/tree/master/champion-system)
 * [ICE-dashboard](https://github.com/Data4Democracy/immigration-connect/tree/master/ICE-dashboard)
-* [Travel-Ban](https://github.com/Data4Democracy/immigration-connect/tree/master/travel-ban)
 
 ### Completed
 
 * [NILC Interactive Visualization](https://github.com/Data4Democracy/immigration-connect/tree/master/nilc-visualization-project)
-* [travel-ban](https://github.com/Data4Democracy/immigration-connect/tree/master/travel-ban)
+* [Travel-ban](https://github.com/Data4Democracy/immigration-connect/tree/master/travel-ban)
 
 ## Getting started:
 * **"First-timers" are welcome!** Whether you're trying to learn data science, hone your coding skills, or get started collaborating over the web, we're happy to help. *(Sidenote: with respect to Git and GitHub specifically, our [github-playground](https://github.com/Data4Democracy/github-playground) repo and the [#github-help](https://datafordemocracy.slack.com/messages/github-help/) Slack channel are good places to start.)*
