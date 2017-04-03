@@ -4,7 +4,7 @@
 
 Collecting, analyzing, and modeling data related to immigration. We're also building tools (visualizations, email parsers, matching algorithms to connect to connect pro bono lawyers with immigrants in need) to support the work of organizations working on immigration law and other immigration related issues.
 
-**Slack:** [#hackathon-imm-conn](https://datafordemocracy.slack.com/messages/hackathon-imm-conn/)
+**Slack:** [#immigration-connect](https://datafordemocracy.slack.com/messages/immigration-connect/)
 
 ## Project Leads
 
@@ -16,6 +16,7 @@ Collecting, analyzing, and modeling data related to immigration. We're also buil
 
 * Project leads (see above)
 * Jorge Alarcon [@alarcj](https://datafordemocracy.slack.com/messages/@alarcj/)
+* Vivek Mangipudi [@stansilas](https://datafordemocracy.slack.com/messages/@stansilas)
 
 
 ## Projects
