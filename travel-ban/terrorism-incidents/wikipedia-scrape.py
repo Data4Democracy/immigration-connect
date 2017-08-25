@@ -7,13 +7,15 @@ from selenium.webdriver.support import expected_conditions as EC
 import os
 import shutil
 import json
+import argparse
 
 def start_driver():
 	return webdriver.Firefox()
 
-def get_page_links(driver, rootUrl='https://en.wikipedia.org/wiki/List_of_terrorist_incidents', all_years=map(str, range(1970, 2018))):
-	driver.get(rootUrl)
-	list_links = driver.find_elements_by_css_selector("div.column-count-3 li a")
+def get_page_links(driver, ROOT_URL, years, list_links):
+	all_years = map(str, years)
+	driver.get(ROOT_URL)
+	list_links = driver.find_elements_by_css_selector(list_links)
 	print len(list_links)
 	page_links = []
 	for j, link in enumerate(list_links):
@@ -27,30 +29,25 @@ def get_page_links(driver, rootUrl='https://en.wikipedia.org/wiki/List_of_terror
 def write_page_links(links, outfile):
 	with open(outfile, 'w') as f:
 		for i, (year, link, text) in enumerate(links):
-			f.write(year + ', ' + link + ', ' + text + ('\n' if i != len(links)-1 else ''))
+			line = '{},{},{}\n'.format(year, link, text)
+			f.write(line)
 
-def read_page_links(fn) :
-	f = open(fn, 'r')
-	data = f.read().split("\n")
-	f.close()
+def read_page_links(filename) :
 	page_links = []
-	for val in data:
-		val = val.split(", ")
-		year = val[0]
-		link = val[1]
-		text = val[2]
-		val_tuple = (year, link, text)
-		page_links.append(val_tuple)
+	with open(filename, 'r') as f:
+		for line in f:
+			data = line.split(',')
+			link = data[1]
+			text = data[2]
+			page_links.append((link, text))
 	return page_links
 
-
-def get_all_incidents(driver, page_links):
+def get_all_incidents(driver, page_links, outfile):
 	all_incidents = {}
-	for j, (year, link, text) in enumerate(page_links):
-		print 'GETTING PAGE:', j, 'OF', len(page_links)
-		driver.get(link)
+	for i, (link, text) in enumerate(page_links):
+		print 'GETTING PAGE #{} OF {}'.format(i+1, len(page_links))
 		all_incidents[text] = get_incidents(driver, link)
-		write_all_incidents(all_incidents)
+		write_all_incidents(all_incidents, outfile)
 	return all_incidents
 
 def get_incidents(driver, url):
@@ -83,7 +80,7 @@ def get_incidents(driver, url):
 			incidents.append(incident)
 	return incidents
 
-def write_all_incidents(incidents, outfile='./data/incidents.json'):
+def write_all_incidents(incidents, outfile):
 	try:
 		shutil.rmtree('./data')
 	except Exception as e:
@@ -92,14 +89,31 @@ def write_all_incidents(incidents, outfile='./data/incidents.json'):
 	with open(outfile, 'w') as f:
 		json.dump(incidents, f, indent=2)
 
-def main(links_outfile='page-links.txt'):
+def parse_arguments():
+	parser = argparse.ArgumentParser()
+	parser.add_argument('-u', '--root-url', help='Specify the base url for which to gather links.\n Default for Terrorism Scrape is https://en.wikipedia.org/wiki/List_of_terrorist_incidents', type=str, required=False)
+	parser.add_argument('-o', '--outfile', help='Specify the outpath for the data to be written to', type=str, required=True)
+	parser.add_argument('-y', '--years', nargs='+', help='Specify the years for which to get the data (multiple arguments accepted)', type=int, required=True)
+	parser.add_argument('-l', '--list-links', help='Specify the css selector for which the page links are gathered\n Default is "div.column-count-3 li a"', type=str, required=False)
+	return parser.parse_args()
+
+def main():
+	args = parse_arguments()
+	links_outfile = args.outfile.split(".json")[0]+'.txt' 
 	driver = start_driver()
-	if not os.path.exists(links_outfile):
-		page_links = get_page_links(driver)
-		write_page_links(page_links, links_outfile)
+	if args.root_url is None:
+		ROOT_URL = 'https://en.wikipedia.org/wiki/List_of_terrorist_incidents'
+	else:
+		ROOT_URL = args.root_url 
+	if args.list_links is None:
+		list_links = "div.column-count-3 li a"
+	else:
+		list_links = args.list_links
+	page_links = get_page_links(driver, ROOT_URL, args.years, list_links)
+	write_page_links(page_links, links_outfile)
 	page_links = read_page_links(links_outfile)
-	incidents = get_all_incidents(driver, page_links)
-	write_all_incidents(incidents)
+	incidents = get_all_incidents(driver, page_links, args.outfile)
+	write_all_incidents(incidents, args.outfile)
 	driver.close()
 
 if __name__ == "__main__" :
