@@ -8,9 +8,9 @@ resources and assist the NILC with the collection of the stories of those they h
 
 See the [conceptual system diagram](elected-hotline.pdf) provided by the NILC for more details.
 
-## Core Components
+## Hackathon
 
-TBD, see [technical requirements](TECHNICAL.md) doc for future plans.
+See the [Hackathon Guide](HACKATHON.md) for goals for the system and description of problems to be solved.
 
 ## Project Description
 
