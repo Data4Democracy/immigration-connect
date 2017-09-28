@@ -8,7 +8,6 @@ Collecting, analyzing, and modeling data related to immigration. We're also buil
 
 ## Project Leads
 
-* Tyler Richards [@tylerjrichards](https://datafordemocracy.slack.com/messages/@tylerjrichards/)
 * Abhijeet Chavan [@chavan](https://datafordemocracy.slack.com/messages/@chavan/)
 * Jonathan Torrez [@jtorrez](https://datafordemocracy.slack.com/messages/@jtorrez/)
 
@@ -23,18 +22,19 @@ Collecting, analyzing, and modeling data related to immigration. We're also buil
 
 Project leads have a weekly meeting with the National Immigration Law Center (NILC) and will share updates from those meetings and update projects based on the needs of the NILC. All active and completed projects can be found below and you can also browse our current [help wanted issues](https://github.com/Data4Democracy/immigration-connect/issues) for more information.
 
-We are also very open to connecting with any other organizations whose work focuses on immigration issues, please contact Tyler, who is handling new organization requests, if you feel we could support your work:
+We are also very open to connecting with any other organizations whose work focuses on immigration issues, please contact Jonathan, who is handling new organization requests, if you feel we could support your work:
 
-* tylerjrichards@gmail.com
+* jonathan.a.torrez@gmail.com
 
 ### Active
 
-* [Volunteer Bank/Email Parsing](https://github.com/Data4Democracy/immigration-connect/tree/master/volunteer-bank)
 * [Champion System](https://github.com/Data4Democracy/immigration-connect/tree/master/champion-system)
-* [ICE-dashboard](https://github.com/Data4Democracy/immigration-connect/tree/master/ICE-dashboard)
+* [Health4All Campaign Analysis]()
+* [DACA Renewal Visualization]()
 
 ### Completed
 
+* [ICE-dashboard](https://github.com/Data4Democracy/immigration-connect/tree/master/ICE-dashboard)
 * [NILC Interactive Visualization](https://github.com/Data4Democracy/immigration-connect/tree/master/nilc-visualization-project)
 * [Travel-ban](https://github.com/Data4Democracy/immigration-connect/tree/master/travel-ban)
 
