@@ -29,8 +29,8 @@ We are also very open to connecting with any other organizations whose work focu
 ### Active
 
 * [Champion System](https://github.com/Data4Democracy/immigration-connect/tree/master/champion-system)
-* [Health4All Campaign Analysis]()
-* [DACA Renewal Visualization]()
+* Health4All Campaign Analysis
+* DACA Renewal Visualization
 
 ### Completed
 
