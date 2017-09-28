@@ -2,7 +2,7 @@
 
 ## Overview
 * **"First-timers" are welcome!** Whether you're trying to learn data science, hone your coding skills, or get started collaborating over the web, we're happy to help. *(Sidenote: with respect to Git and GitHub specifically, our [github-playground](https://github.com/Data4Democracy/github-playground) repo and the [#github-help](https://datafordemocracy.slack.com/messages/github-help/) Slack channel are good places to start.)*
-* **We believe good code is reviewed code.** All commits to this repository are approved by project maintainers and/or leads (listed above). The goal here is *not* to criticize or judge your abilities! Rather, sharing insights and achievements. Code reviews help us continually refine the project's scope and direction, as well as encourage the discussion we need for it to thrive.
+* **We believe good code is reviewed code.** All commits to this repository are approved by project maintainers and/or leads. The goal here is *not* to criticize or judge your abilities! Rather, sharing insights and achievements. Code reviews help us continually refine the project's scope and direction, as well as encourage the discussion we need for it to thrive.
 * **Get involved!** Browse our [help wanted issues](https://github.com/Data4Democracy/immigration-connect/issues). All of our current discussions, proposals, and active projects are kept there and it will be the fastest way to determine how you can jump in and start helping. See if there is anything that interests you, start commenting here or in the [Slack channel](https://datafordemocracy.slack.com/messages/immigration-connect/), and you can start contributing right away!
 
 ## Git Workflow
@@ -48,7 +48,7 @@ $ git checkout -b 23-new-feature
 $ git push origin 23-new-feature
 ```
 
-6. When you are done working on an issue, or otherwise need to solicit feedback, create a merge request (or pull request) between your topic branch and the master branch in Qntfy's canonical repository. The merge request should include a `#`, the issue number in the beginning of the name, followed by a colon. i.e. `#24: Add DACA visualization`.The `#24` will allow us to easily associate a PR with the issue you are working on.
+6. When you are done working on an issue, or otherwise need to solicit feedback, create a merge request (or pull request) between your topic branch and the master branch in D4D's canonical repository. The merge request should include a `#`, the issue number in the beginning of the name, followed by a colon. i.e. `#24: Add DACA visualization`.The `#24` will allow us to easily associate a PR with the issue you are working on.
 
 7. Go through the code review process. Team leads and collaborators have write access and will merge your contribution when it passes the review process.
 
