@@ -2,7 +2,7 @@
 
 ## Hackathon Goals
 
-- Primary: Stories translated to proposed features, effort and experience level estimates, proposed timeline for MVP prototype, UI mock-ups/proposals, proposed data schemas, proposed categorization/matching strategies
+- Primary: Stories translated to proposed features, issues created on Github for features/tasks, effort and experience level estimates, proposed timeline for MVP prototype, UI mock-ups/proposals, proposed data schemas, proposed categorization/matching strategies, 
 - Stretch: Working prototype with dummy resources and functionality to demo for NILC that meets some or all of the following in order of priority:
   - Publically available landing page
   - Users can identify who they are (immigrant, congressional rep staff, NILC staff, volunteer) 
