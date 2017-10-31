@@ -1,9 +1,15 @@
-# Champion System Hackathon Guide
+# Champion System Project Planning Document
 
-## Hackathon Goals
+## Proposed Workflow Organized by Priority
 
-- Primary: Stories translated to proposed features, issues created on Github for features/tasks, effort and experience level estimates, proposed timeline for MVP prototype, UI mock-ups/proposals, proposed data schemas, proposed categorization/matching strategies, 
-- Stretch: Working prototype with dummy resources and functionality to demo for NILC that meets some or all of the following in order of priority:
+- Preliminary Steps (must be completed before starting dev)
+  - Stories translated to proposed features
+  - Effort and experience level estimates for features
+  - Proposed timeline for MVP prototype
+  - UI mock-ups/proposals
+  - Proposed data schemas for any databases (or simply proposed data storage solutions)
+  - Proposed categorization/matching strategies
+- MVP: Working prototype with dummy resources and functionality to demo for NILC that meets some or all of the following in order of priority:
   - Publically available landing page
   - Users can identify who they are (immigrant, congressional rep staff, NILC staff, volunteer) 
   - Users are re-directed to appropriate landing page based on identification.
