@@ -18,3 +18,16 @@ Tweets collected in support of NILC tasks.
       * **is_retweet** (*bool*) - is this Tweet a retweet?
       * **retweets** (*int*) - number of times this Tweet was retweeted
       * **favorites** (*int*) - number of times this Tweet was favorited
+* [legislators.json](https://github.com/Data4Democracy/immigration-connect/tree/master/datasets/nilc-tweets/legislators.json) - JSON array of Tweets by key Tennesee legislators **@rongant,@senatornorris,@billketron,@jimtracy**
+  * Tweets were collected from **January 1st, 2012** through **October 28th, 2017**
+  * JSON objects have the structure
+      * **username** (*string*) - the Twitter account name that posted the Tweet
+      * **date** (*string*) - the time the Tweet was posted
+      * **retweets** (*int*) - number of times this Tweet was retweeted
+      * **favorites** (*int*) - number of times the tweet was favorited
+      * **text** (*string*) - body of tweet 
+      * **geo** (*string*) - location of tweet 
+      * **mentions** (*string*) - list of @users mentioned in tweet 
+      * **hastags** (*string*) - list of #hashtags mentioned in tweet 
+      * **id** (*int*) - id of tweet 
+	  * **permalink** (*string*) - url 
