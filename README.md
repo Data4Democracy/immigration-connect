@@ -10,6 +10,7 @@ Collecting, analyzing, and modeling data related to immigration. We're also buil
 
 * Abhijeet Chavan [@chavan](https://datafordemocracy.slack.com/messages/@chavan/)
 * Jonathan Torrez [@jtorrez](https://datafordemocracy.slack.com/messages/@jtorrez/)
+* Sharon Wragg [@sharon](https://datafordemocracy.slack.com/messages/D9M456TLJ/)
 
 ## Maintainers (people with write access)
 
