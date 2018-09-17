@@ -8,14 +8,16 @@ Collecting, analyzing, and modeling data related to immigration. We're also buil
 
 ## Project Leads
 
-* Abhijeet Chavan [@chavan](https://datafordemocracy.slack.com/messages/@chavan/)
-* Jonathan Torrez [@jtorrez](https://datafordemocracy.slack.com/messages/@jtorrez/)
+* Sharon Wragg [@sharon-anne](https://datafordemocracy.slack.com/messages/D9M456TLJ/) - GitHub Project Lead
+* Obinna Nnenanya [kingobi](https://datafordemocracy.slack.com/messages/DCMJFF8SX/)- GitHub Project Lead
+* Julie T. Do [@julietdo](https://datafordemocracy.slack.com/messages/DCMJBRGTD/) - GitHub Project Lead
+* Xiao Wang (Stella) [@Stella](https://datafordemocracy.slack.com/messages/DCMJD269H/) - Communications Lead
+* Lisa Moller [@Lisa](https://datafordemocracy.slack.com/messages/DCNP80RAB/) - Partnerships Lead
+* Prratek Ramchandani [@prratek](https://datafordemocracy.slack.com/messages/DCMN0Q75G/) - Partnerships Lead
 
 ## Maintainers (people with write access)
 
 * Project leads (see above)
-* Jorge Alarcon [@alarcj](https://datafordemocracy.slack.com/messages/@alarcj/)
-* Vivek Mangipudi [@stansilas](https://datafordemocracy.slack.com/messages/@stansilas)
 
 
 ## Projects
