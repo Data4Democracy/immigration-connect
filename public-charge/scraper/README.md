@@ -7,7 +7,7 @@ The regulations site is rendered using javascript. As such, simple scrapping
 tools will fail and thus the use of selenium in this project.
 
 Comments are organized using an ID of the type `USCIS-*`.
-To minimize the ammount of request done to the site, we are proposing to get
+To minimize the amount of request done to the site, we are proposing to get
 all USCIS IDs and then use this to get the url for each individual comment.
 The url for each comment is of the type `{baseURL}/document?D=USCIS-XXXXXX`.
 To get all the USCIS IDs and use them to form urls for the comments directly,
@@ -16,7 +16,7 @@ method.
 
 
 Using the scraper, one can output all the pertinent information for each
-comment for all comments on the first page by doing soemthing like this:
+comment for all comments on the first page by doing something like this:
 ```python
 # Start a scraper and set a page laod delay of 4 seconds.
 scraper = Scraper(delay=4)                                                 
