@@ -2,6 +2,8 @@ FROM python:3.6.7-stretch AS base
 
 ARG CHROME_DRIVER=2.43
 
+ENV PYTHONUNBUFFERED 1
+
 # Install chrome and chromedriver.
 RUN curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
     && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list \
@@ -24,7 +26,7 @@ ADD main.py requirements.txt /opt/app/
 WORKDIR /opt/app
 
 RUN pip install -r requirements.txt \
-    && pip install yapf
+    && pip install ipython
 
 USER chrome
 

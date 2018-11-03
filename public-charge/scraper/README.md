@@ -9,26 +9,46 @@ tools will fail and thus the use of selenium in this project.
 Comments are organized using an ID of the type `USCIS-*`.
 To minimize the ammount of request done to the site, we are proposing to get
 all USCIS IDs and then use this to get the url for each individual comment.
-
 The url for each comment is of the type `{baseURL}/document?D=USCIS-XXXXXX`.
+To get all the USCIS IDs and use them to form urls for the comments directly,
+one can use the [`Scraper.get_comments_urls_on_page(page_number)`](./main.py) 
+method.
 
-The current script will print the request uri for the first 50 comments on the
-site.
 
-## Installation instructions.
-To use this script you will need to have the python 3.x dependencies installed
-along with chrome and chrome driver.
+Using the scraper, one can output all the pertinent information for each
+comment for all comments on the first page by doing soemthing like this:
+```python
+# Start a scraper and set a page laod delay of 4 seconds.
+scraper = Scraper(delay=4)                                                 
 
-To install the python dependencies do:
+# Get comment urls on first page.                                           
+urls = scraper.get_comments_urls_on_page(1)
+
+for url in urls:
+    print(scraper.scrape_comment(comment_url=url))
+
+scraper.shut_down()
 ```
-pip install -r requirements.txt
+
+## Setup instructions
+You can use the Docker container to run the scrpaer.
+The [container](./Dockerfile) downloads chrome, chrome driver, and install all
+python dependencies.
+
+We recommed you use the [Makefile](./Makefile) to build and run the
+container.
+Running,
+```
+$ make shell
 ```
 
-For sample chrome and chrome driverinstallation instructions, see 
-[How to Setup Selenium with ChromeDriver on Ubuntu 18.04 & 16.04](https://tecadmin.net/setup-selenium-chromedriver-on-ubuntu/).
+will put you inside the container in an interactive session.
+
 
 ## Resources
 Some reference material concerning xpath:
 * [xpath tutorial](https://www.w3schools.com/xml/xpath_intro.asp)
 
 * [XPath in Selenium WebDriver: Complete Tutorial](https://www.guru99.com/xpath-selenium.html)
+
+* [How to Setup Selenium with ChromeDriver on Ubuntu 18.04 & 16.04](https://tecadmin.net/setup-selenium-chromedriver-on-ubuntu/)

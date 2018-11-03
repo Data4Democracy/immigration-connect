@@ -17,7 +17,7 @@ build:
 	docker build $(DOCKER_BUILD_ARGS) -f "$(DOCKERFILE)" -t "$(DOCKER_IMAGE)" .
 
 format:
-	yapf -i --style=google
+	yapf -i --style=google *.py
 
 shell: build
 	xhost +
