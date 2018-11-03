@@ -7,7 +7,9 @@ class Scraper(object):
     """
     """
 
-    def __init__(self, delay):
+    def __init__(self, delay=4):
+        """
+        """
         self.delay = delay
         self.driver = webdriver.Chrome()
         self.driver.set_window_size(1200, 800)
@@ -30,6 +32,9 @@ class Scraper(object):
 
     def get_comments_total(self):
         """ Get the total number of comments
+
+        Go to the first page of the comments section and get the total number
+        of comments from the bar at the bottom of the page.
         """
         # Get the url for the first page.
         url = Scraper.get_page(page_number=1)
@@ -79,6 +84,7 @@ class Scraper(object):
         ]
 
         return list(set(comments))
+
 
     def scrape_comment(self, comment_url):
         """
@@ -149,7 +155,7 @@ if __name__ == "__main__":
     # Get comment urls on first page.
     urls = scraper.get_comments_urls_on_page(1)
 
-    for url in urls[:1]:
-        print(scraper.scrape_comment(comment_url=url))
+    for i, url in enumerate(urls):
+        print(i,  scraper.scrape_comment(comment_url=url))
 
     scraper.shut_down()

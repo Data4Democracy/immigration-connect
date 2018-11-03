@@ -7,7 +7,8 @@ DOCKERFILE ?= Dockerfile
 
 DOCKER_ENV := -e DISPLAY=${DISPLAY}
 DOCKER_MOUNT := -v $(CURDIR):/opt/app -v /tmp/.X11-unix:/tmp/.X11-unix
-DOCKER_FLAGS := docker run --rm -it --net host --security-opt seccomp=chrome.json $(DOCKER_ENV) $(DOCKER_MOUNT)
+DOCKER_RUN_OPTS := --net host --security-opt seccomp=chrome.json --shm-size=2g
+DOCKER_FLAGS := docker run --rm -it $(DOCKER_RUN_OPTS) $(DOCKER_ENV) $(DOCKER_MOUNT)
 
 DOCKER_RUN := $(DOCKER_FLAGS) "$(DOCKER_IMAGE)"
 

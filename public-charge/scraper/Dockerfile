@@ -22,7 +22,7 @@ RUN groupadd -r chrome && useradd -r -g chrome -G audio,video,voice chrome \
     && mkdir -p /home/chrome/Downloads /home/chrome/.config/google-chrome /data \
     && chown -R chrome:chrome /home/chrome && chown -R chrome:chrome /data
 
-ADD main.py requirements.txt /opt/app/
+ADD scraper.py requirements.txt /opt/app/
 WORKDIR /opt/app
 
 RUN pip install -r requirements.txt \
