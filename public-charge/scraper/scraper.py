@@ -1,6 +1,7 @@
 from math import ceil
 from time import sleep
 from selenium import webdriver
+from xvfbwrapper import Xvfb
 
 
 class Scraper(object):
@@ -23,9 +24,15 @@ class Scraper(object):
         rpp is the results per page (10, 25, 50)
         po is the page offset. If rpp=50, po=0 is 1st page, po=50 is the 2nd 
         page, so on.
+
+        To organize by comment due date, newer to older, change 'sb' to 
+        'commentDueDate'. To change the order, older to newer change 'so' to
+        'DESC'.
+        To organize data by date posted, change 'sb' to 'postedDate'.
         """
+
         url = "https://www.regulations.gov/docketBrowser"
-        url += "?rpp={0}&so=DESC&sb=commentDueDate".format(results_per_page)
+        url += "?rpp={0}&so=DESC&sb=postedDate".format(results_per_page)
         url += "&po={0}&dct=PS".format((page_number - 1) * results_per_page)
         url += "&D=USCIS-2010-0012"
         return url
@@ -84,7 +91,6 @@ class Scraper(object):
         ]
 
         return list(set(comments))
-
 
     def scrape_comment(self, comment_url):
         """
@@ -150,12 +156,23 @@ class Scraper(object):
 
 if __name__ == "__main__":
 
+    # If True, browser is run headlessly.
+    virtual_display = True
+    if virtual_display:
+        vdisplay = Xvfb()
+        vdisplay.start()
+
+    # Start scraper.
     scraper = Scraper(delay=4)
 
     # Get comment urls on first page.
     urls = scraper.get_comments_urls_on_page(1)
 
     for i, url in enumerate(urls):
-        print(i,  scraper.scrape_comment(comment_url=url))
+        print(i, scraper.scrape_comment(comment_url=url))
 
     scraper.shut_down()
+
+    # Stop xvfb
+    if virtual_display:
+        vdisplay.stop()

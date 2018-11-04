@@ -25,3 +25,4 @@ shell: build
 	$(DOCKER_RUN) bash
 
 clean:
+	rm -rf __pycache__

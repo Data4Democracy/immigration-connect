@@ -31,6 +31,7 @@ scraper.shut_down()
 ```
 
 ## Setup instructions
+### Developers
 You can use the Docker container to run the scrpaer.
 The [container](./Dockerfile) downloads chrome, chrome driver, and install all
 python dependencies.
@@ -44,6 +45,39 @@ $ make shell
 
 will put you inside the container in an interactive session.
 
+### Scraping comments
+To start scraping comments you can run the `get_comments.py` script:
+```
+python get_comments.py
+```
+
+This will populate a sqlite database called `comments.sql`.
+For the database to work, currently you have to set the permissions for it and
+for your current working directory:
+```
+chmod o=u comments.sqlite
+
+cd ../
+chmod o=u scraper/
+```
+
+Then you are all set.
+
+#### Inspecting the database
+To see whats in the database, you can do something like this:
+```python
+from get_comments import Base, Comment                                          
+from sqlalchemy import create_engine                                            
+from sqlalchemy.orm import sessionmaker                                         
+                                                                                
+engine = create_engine('sqlite:///comments.sqlite')                             
+Base.metadata.bind = engine                                                     
+DBSession = sessionmaker()                                                      
+DBSession.bind = engine                                                         
+session = DBSession()                                                           
+                                                                                
+session.query(Comment).filter(Comment.uscisid == "USCIS-2010-0012-7079").one()
+```
 
 ## Resources
 Some reference material concerning xpath:
@@ -52,3 +86,5 @@ Some reference material concerning xpath:
 * [XPath in Selenium WebDriver: Complete Tutorial](https://www.guru99.com/xpath-selenium.html)
 
 * [How to Setup Selenium with ChromeDriver on Ubuntu 18.04 & 16.04](https://tecadmin.net/setup-selenium-chromedriver-on-ubuntu/)
+
+* [Introductory Tutorial of Python’s SQLAlchemy](https://www.pythoncentral.io/introductory-tutorial-python-sqlalchemy/)
