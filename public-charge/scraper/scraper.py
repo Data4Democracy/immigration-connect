@@ -5,7 +5,7 @@ from xvfbwrapper import Xvfb
 
 
 class Scraper(object):
-    """
+    """ Scrape regulations.go comments
     """
 
     def __init__(self, delay=4):

@@ -45,6 +45,27 @@ $ make shell
 
 will put you inside the container in an interactive session.
 
+### Running container without Make
+
+Build the container image:
+```
+docker build --force-rm \
+    --build-arg USER=$USER --build-arg=$UID \
+    -f Dockerfile -t regulationsgov .
+```
+
+Run the container:
+```
+docker run --rm -it \
+    --net host \
+    --security-opt seccomp=chrome.json \
+    --shm-size=2g \
+    -e DISPLAY=${DISPLAY} \
+    -v $(CURDIR):/opt/app \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    regulationsgov bash
+```
+
 ### Scraping comments
 To start scraping comments you can run the `get_comments.py` script:
 ```
@@ -52,11 +73,10 @@ python get_comments.py
 ```
 
 This will populate a sqlite database called `comments.sql`.
-For the database to work, currently you have to set the permissions for it and
-for your current working directory:
+If you didn't set the same `UID` in the container as the one you are using in 
+your host machine, then for the database to work, you'll have to set the 
+permissions for your current working directory to be writen to by `others`:
 ```
-chmod o=u comments.sqlite
-
 cd ../
 chmod o=u scraper/
 ```
