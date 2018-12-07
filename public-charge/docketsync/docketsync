@@ -1,0 +1,541 @@
+#!/usr/bin/env python
+
+import argparse
+import datetime as dt
+import json
+import logging
+import os
+import pandas as pd
+import pathlib
+import sqlite3
+import textwrap
+import time
+import requests
+import urllib.parse
+
+
+class RegsGovAPIException(Exception):
+    def __init__(self, response):
+        self.response = response
+
+    def __repr__(self):
+        return '<RegsGovAPIException status=%s>' % self.response.status_code
+
+    def __str__(self):
+        req = self.response.request
+        return textwrap.dedent(
+                f'Failed to execute API request:\n\t{req.method} {req.url}'
+                f'\nBody:\n\t{req.body}'
+                f'\nResponse status code:\n\t{self.response.status_code}'
+                f'\nResponse body:\n\t{self.response.text}')
+
+
+class RegsGovAPI(object):
+
+    def __init__(self, key, base_url="https://api.data.gov:443/regulations/v3", delay=0):
+
+        self.base_url = base_url
+        self.key = key
+        self.delay = delay
+        self.calls = 0
+        self.session = requests.Session()
+        self.delay_end = dt.datetime.now()
+        self.log = logging.getLogger(__name__)
+        self.rate_limit_retry_delay = 120
+        self.server_error_retry_delay = 120
+
+    def request(self, method, path, **kwargs):
+
+        # increment for each api call
+        self.calls += 1
+
+        # if we have not met the delay timeout, wait for it to pass.
+        time_left = self.delay_end - dt.datetime.now()
+        if time_left.total_seconds() > 0:
+            # delay each api call
+            time.sleep(time_left.total_seconds())
+
+        # add the url to all outgoing requests.
+        path = f"{self.base_url}{path}"
+
+        # add an api key to all outgoing requests.
+        kwargs['params']['api_key'] = self.key
+
+        # make the request
+        response = method(path, **kwargs)
+
+        # if the response was error, check to see if it is an error we can
+        # handle. if not, raise an exception with info about the failed
+        # request.
+
+        # check for rate limit error
+        if response.status_code == 429:
+            # 429 indicates that we are making too many requests
+            # and we are over the rate limit
+            # we see this most often when downloading multiple files.
+            # wait for a bit and try the request again.
+            self.log.info("API request rate limit exceeded, retry in"
+                          f" {self.rate_limit_retry_delay} seconds.")
+            time.sleep(self.rate_limit_retry_delay)
+            retry_response = method(path, **kwargs)
+            if retry_response.status_code >= 400:
+                self.log.info("retry failed. raising original exception")
+                raise RegsGovAPIException(response)
+            else:
+                # save the retry response as the original response
+                response = retry_response
+
+        # client side error
+        if response.status_code >= 400 and response.status_code <= 499:
+            raise RegsGovAPIException(response)
+
+        # server side error
+        # try to handle server side hiccups by
+        # waiting 30 seconds and trying the request again
+        if response.status_code >= 500 and response.status_code <= 599:
+            self.log.info("received server error at"
+                          f" {response.request.url} {response.status_code}")
+            self.log.info("retrying request in"
+                          f" {self.server_error_retry_delay} seconds")
+            time.sleep(self.server_error_retry_delay)
+            retry_response = method(path, **kwargs)
+            if retry_response.status_code >= 400:
+                self.log.info("retry failed. raising original exception")
+                raise RegsGovAPIException(response)
+            else:
+                # save the retry response as the original response
+                response = retry_response
+
+        # set the next delay complete time
+        self.delay_end = dt.datetime.now() + dt.timedelta(seconds=self.delay)
+
+        return response
+
+    def documents(self, params):
+        method = self.session.get
+        path = "/documents.json"
+        response = self.request(method, path, params=params)
+        return response.json()
+
+    def document(self, params):
+        method = self.session.get
+        path = "/document.json"
+        response = self.request(method, path, params=params)
+        return response.json()
+
+    def dockets(self, params):
+        method = self.session.get
+        path = "/dockets.json"
+        response = self.request(method, path, params=params)
+        return response.json()
+
+    def download(self, params, filename):
+        method = self.session.get
+        path = "/download"
+        response = self.request(method, path, params=params, stream=True)
+
+        # save the file to disk
+        with open(filename,'wb') as fd:
+            chunk_cnt = 0
+            for chunk in response.iter_content(chunk_size=4096):
+                fd.write(chunk)
+                chunk_cnt += 1
+
+        return path
+
+
+class DocketSync(object):
+
+    def __init__(self, api_key, docket_id, attachments_dir="attachments",
+                 request_delay=0):
+
+        self.log = logging.getLogger(__name__)
+
+        self.docket_id = docket_id
+        self.attachments_dir = attachments_dir
+
+        # create an object that represents the regulations.gov api
+        self.api = RegsGovAPI(key=api_key, delay=request_delay)
+
+        # describe the dataframe that holds comments info
+        self.comments_column_names = [
+            'docid',
+            'tracking_number',
+            'rin',
+            'title',
+            'date_posted',
+            'date_received',
+            'comment_text',
+            'attachments'
+        ]
+
+        self.comments = pd.DataFrame(columns=self.comments_column_names)
+
+    def load_comments(self, load_from, table_name):
+
+        if os.path.exists(load_from) is False:
+            log.info(f"unable to load comments database {load_from}: does not exist")
+            return
+
+        # load a previously saved sqlite database
+        log.info(f"loading comments from {load_from}")
+        conn = sqlite3.connect(load_from)
+        self.comments = pd.read_sql(f"select * from {table_name};", conn)
+        conn.close()
+        log.info(f"loaded {len(self.comments.index)} comments")
+
+    def sync_comments(self, posted_date=None, records_per_page=1000,
+                      page_offset=0):
+
+        # make sure the attachments directory exists
+        pathlib.Path(self.attachments_dir).mkdir(parents=True, exist_ok=True)
+
+        # default posted date is yesterday
+        if posted_date is None:
+            posted_date= (
+                dt.datetime.now() - dt.timedelta(days=1)
+            ).strftime("%m/%d/%y")
+
+        self.log.info(f"using posted date: {posted_date}")
+
+        # track the number of records we have processed so far
+        # so we know how far through the process we are in
+        # log messages. this needs to be initialized to page_offset
+        # so the count is correct if we start at a page offset other
+        # than 0
+        record_cnt = page_offset
+
+        # traverse through all pages of comment document summaries
+        # start off by setting a temporary value in total_num_records
+        # make sure we run the while loop as least once to get the
+        # real total number of records.
+        total_num_records = page_offset + 1
+
+        while page_offset < total_num_records:
+
+            # retrieve summaries for all:
+            # public submission (comments) documents
+            # associated with our docket id
+            # posted between the date(s) in posted_date
+            # setting the number of records per page.
+            # for the current page offset
+            result = self.api.documents(params={
+                "dct": "PS",
+                "dktid": self.docket_id,
+                "pd": posted_date,
+                "rpp": records_per_page,
+                "po": page_offset,
+            })
+
+            self.log.info(f"processing comment summaries from"
+                          f" docket_id: {self.docket_id},"
+                          f" posted_date: {posted_date},"
+                          f" records_per_page: {records_per_page},"
+                          f" page_offset: {page_offset}")
+
+            # save the real total number of records
+            total_num_records = result['totalNumRecords']
+
+            self.log.info(f"total number of comments in query:"
+                          f" {total_num_records}")
+
+            # exit early if there are no records
+            # that is if the real total number of records is 0
+            # or if the json response has no 'documents' key
+            # in both cases, the json response has no 'documents' key
+            # so we only check for that condition to determine
+            # if there are records to parse.
+            if 'documents' not in result:
+                self.log.info(f"no more comment summary records to parse")
+                return
+
+            for record in result['documents']:
+
+                record_cnt += 1
+
+                # retrieve the comment's document id
+                docid = record['documentId']
+
+                # if we already have a record of this document
+                # continue on to the next document
+                if docid in self.comments.docid.values:
+                    # TODO: check if attachments exist on disk
+                    self.log.info(f"[{record_cnt}/{total_num_records}]"
+                                  f" skipping previously retrieved comment:"
+                                  f" {docid}")
+                    continue
+
+                self.log.info(f"[{record_cnt}/{total_num_records}]"
+                              f" retrieving {docid}")
+
+                # use the comment's document id to retrieve
+                # the full comment record
+                comment = self.api.document(params={"documentId": docid})
+
+                self._process_comment_record(comment)
+
+            # update the page offset to get the next page worth
+            # of comment summaries in the next while loop iteration
+            page_offset = page_offset + records_per_page
+
+    def _process_comment_record(self, comment):
+
+        data = dict.fromkeys(self.comments_column_names)
+
+        # store the comment's:
+
+        # document id
+        data['docid'] = comment['documentId']['value']
+
+        # title
+        # title include's the submitter's name but we don't parse
+        # out the submitter's name right now because it is not trivial
+        data['title'] = comment['title']['value']
+
+        # date posted
+        data['date_posted'] = comment['postedDate']
+
+        # tracking number
+        data['tracking_number'] = comment['trackingNumber']['value']
+
+        # RIN - regulation identification number
+        data['rin'] = comment['rin']['value']
+
+        # date received
+        data['date_received'] = comment['receivedDate']
+
+        # comment text
+        data['comment_text'] = comment['comment']['value']
+
+        data['attachments'] = []
+        # check the attachment count number (that is really a string)
+        if comment['attachmentCount']['value'] != "0":
+            # capture all attachments
+            for attachment in comment['attachments']:
+                data['attachments'].extend(
+                    self._get_comment_attachment(data['docid'], attachment))
+
+        # serialize the attachments list so it can be stored
+        # in a csv or sqlite db
+        data['attachments'] = " ".join(data['attachments'])
+
+        # save the data to the dataframe
+        self.comments.loc[len(self.comments)] = data
+
+    def _get_comment_attachment(self, docid, attachment):
+
+        # save the paths of all downloaded attachments
+        attachment_paths = []
+
+        # check if the attachment is downloadable by looking for an entry named
+        # 'fileFormats'. if there is no 'fileFormats' entry, it has probably
+        # been restricted and we can only capture the postingRestriction,
+        # reasonRestricted, and the title.
+        if 'fileFormats' not in attachment:
+            # not a downloadable attachment, save the metadata to a file
+            fname = "{0}_{1}.json".format(
+                docid,
+                attachment['attachmentOrderNumber'])
+
+            path = os.path.join(self.attachments_dir,fname)
+
+            with open(path,"w") as f:
+                json.dump(attachment, f, indent=2)
+
+            attachment_paths.append(path)
+
+            self.log.info(f"saved metadata to {path}")
+
+            # exit early, returning the attachment metadata file path
+            return attachment_paths
+
+        # fileFormats is a list of urls.
+        # download each file format,
+        # use query params to formulate the local filename
+        for attachment_full_uri in attachment['fileFormats']:
+
+            # separate the scheme, netloc, and path
+            # from the query parameters
+            parsed_uri = urllib.parse.urlparse(attachment_full_uri)
+
+            # parse the query params into a dictionary
+            query_params = dict(urllib.parse.parse_qsl(parsed_uri.query))
+
+            # generate the filename based on query params
+            fname = "{0}_{1}.{2}".format(
+                query_params['documentId'],
+                query_params['attachmentNumber'],
+                query_params['contentType'])
+
+            path = os.path.join(self.attachments_dir,fname)
+
+            # make request and download file data
+            self.api.download(params=query_params, filename=path)
+            self.log.info(f"downloaded {path}")
+
+            attachment_paths.append(path)
+
+        # return downloaded file paths
+        return attachment_paths
+
+def save_as_csv(opts, df):
+    # save as csv file
+    df.to_csv(opts.save_csv, index=False)
+
+def save_as_sqlite(opts, df):
+    # save as sqlit3 database
+    # make docid an index in the database
+    conn = sqlite3.connect(opts.save_db)
+    df.to_sql(opts.comments_table, conn, if_exists='replace', index=False)
+    conn.close()
+
+def setup_logging(logfile_name):
+
+    # log to file
+    logging.basicConfig(
+            level=logging.DEBUG,
+            format='%(asctime)s %(name)-25s %(levelname)-8s %(message)s',
+            datefmt='%Y-%m-%d %H:%M:%S',
+            filename=logfile_name,
+            filemode='a')
+
+    # define a Handler which writes INFO messages or higher to the sys.stderr
+    console = logging.StreamHandler()
+    console.setLevel(logging.INFO)
+    # setup a format for the console logger
+    formatter = logging.Formatter(fmt='%(asctime)s %(message)s',
+                                  datefmt='%Y-%m-%d %H:%M:%S')
+    console.setFormatter(formatter)
+    # add the new handler to the root logger
+    logging.getLogger('').addHandler(console)
+
+def parse_arguments():
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "--attachments-dir",
+        help="directory holding attachments",
+        default="attachments",
+        type=str)
+
+    parser.add_argument(
+        "--comments-table",
+        help="name of the sql db table holding comments",
+        default="comments",
+        type=str)
+
+    parser.add_argument(
+        "--docket",
+        help="docket id to retrieve data from",
+        default="USCIS-2010-0012",
+        type=str)
+
+    parser.add_argument(
+        "--load-db",
+        help="load comments data from the named sqlite file",
+        default=None,
+        type=str)
+
+    parser.add_argument(
+        "--logfile",
+        help="name of logfile to write log messages to",
+        default="comments.log",
+        type=str)
+
+    parser.add_argument(
+        "--page-offset",
+        help="page offset for /documents endpoint",
+        default=0,
+        type=int)
+
+    parser.add_argument(
+        "--posted_date",
+        help="date (or date range) comments were posted to reguolations.gov website. Format MM/DD/YY or MM/DD/YY-MM/DD/YY",
+        default="",
+        type=str)
+
+    parser.add_argument(
+        "--records-per-page",
+        help="max number of records a request to /documents endpoint should return",
+        default=1000,
+        type=int)
+
+    parser.add_argument(
+        "--request-delay",
+        help="minimum number of seconds between api requests",
+        default=4,
+        type=int)
+
+    parser.add_argument(
+        "--save-csv",
+        help="save the data to the named csv file",
+        default=None,
+        type=str)
+
+    parser.add_argument(
+        "--save-db",
+        help="save the data to the named sqlite file",
+        default=None,
+        type=str)
+
+    opts = parser.parse_args()
+    return opts
+
+
+if __name__ == '__main__' :
+
+    opts = parse_arguments()
+
+    # read in the API key from the REGULATIONS_GOV_API_KEY environment variable
+    API_KEY = os.environ['REGULATIONS_GOV_API_KEY']
+
+    # setup logging
+    setup_logging(opts.logfile)
+    log = logging.getLogger(__name__)
+
+    #logging.basicConfig(
+    #    format="%(asctime)s: %(message)s",
+    #    level=int((6-opts.verbose)*10))
+
+    log.info('opts = {}'.format(opts))
+
+    # capture time before we start querying
+    start_time = dt.datetime.now()
+
+    try:
+        ds = DocketSync(
+                API_KEY,
+                opts.docket,
+                attachments_dir=opts.attachments_dir,
+                request_delay=opts.request_delay)
+
+        # load comments from the database
+        if opts.load_db is not None:
+            ds.load_comments(
+                load_from=opts.load_db,
+                table_name=opts.comments_table)
+
+        # retrieve new comments
+        ds.sync_comments(
+            posted_date=opts.posted_date,
+            records_per_page=opts.records_per_page,
+            page_offset=opts.page_offset)
+
+    finally:
+        # capture time when we finish querying
+        end_time = dt.datetime.now()
+        elapsed_time = end_time - start_time
+
+        log.info(f"made {ds.api.calls} API call(s) in {elapsed_time}")
+
+        if opts.save_csv is not None:
+            log.info(f"saving comments to {opts.save_csv}")
+            save_as_csv(opts, ds.comments)
+
+        if opts.save_db is not None:
+            log.info(f"saving comments to {opts.save_db}")
+            save_as_sqlite(opts, ds.comments)
+
+        log.info('exiting')
+
