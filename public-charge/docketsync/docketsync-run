@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# declare constants
+DOCKER_IMAGE=d4d/docketsync
+DOCKETSYNC_PATH=/usr/local/bin/docketsync
+TIMESTAMP=`date +'%H%M%S'`
+WORKDIR=/opt/docketsync
+
+# if there are any arguments,
+# pass them along to the Docker command
+if [ "$#" -gt 0 ]; then
+    docketsync_cmd="${DOCKETSYNC_PATH} $*"
+else
+    docketsync_cmd=
+fi
+
+# launch docketsync inside a Docker container
+docker run -it --rm --init \
+    --name docketsync-${TIMESTAMP} \
+    --user=`id -u`:`id -g` \
+    --volume `pwd`:${WORKDIR} \
+    --workdir ${WORKDIR} \
+    --env REGULATIONS_GOV_API_KEY \
+    ${DOCKER_IMAGE} \
+    ${docketsync_cmd}

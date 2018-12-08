@@ -450,9 +450,9 @@ def parse_arguments():
         type=int)
 
     parser.add_argument(
-        "--posted_date",
+        "--posted-date",
         help="date (or date range) comments were posted to reguolations.gov website. Format MM/DD/YY or MM/DD/YY-MM/DD/YY",
-        default="",
+        default=None,
         type=str)
 
     parser.add_argument(
@@ -493,10 +493,6 @@ if __name__ == '__main__' :
     # setup logging
     setup_logging(opts.logfile)
     log = logging.getLogger(__name__)
-
-    #logging.basicConfig(
-    #    format="%(asctime)s: %(message)s",
-    #    level=int((6-opts.verbose)*10))
 
     log.info('opts = {}'.format(opts))
 

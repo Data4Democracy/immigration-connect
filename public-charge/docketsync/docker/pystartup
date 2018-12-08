@@ -1,0 +1,22 @@
+import readline
+import rlcompleter
+
+
+# setup readline and tab complete support for python 2 and 3
+
+readline.parse_and_bind('tab: complete')
+
+
+# disable python_history file inside of the container
+# else we will get the following error when exiting
+# and interactive session because there is no home dir:
+#
+# Error in atexit._run_exitfuncs:
+# PermissionError: [Errno 13] Permission denied
+#
+# https://unix.stackexchange.com/a/297834
+
+readline.write_history_file = lambda *args: None
+
+
+# vim: syntax=python
