@@ -25,6 +25,7 @@ WORKDIR=/opt/docketsync
 
 
 build:
+	chmod 755 docketsync docketsync-run
 	docker build -t ${DOCKER_IMAGE} .
 
 shell:

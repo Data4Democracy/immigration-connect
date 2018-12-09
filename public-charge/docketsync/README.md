@@ -37,6 +37,15 @@ git clone https://github.com/Data4Democracy/immigration-connect immigration-conn
 cd immigration-connect/public-charge;
 ```
 
+Ensure file permissions are properly set. Sometimes after doing a `git clone`,
+executable files don't have the proper file permissions. Use the following
+command to make sure the `docketsync` and `docketsync-run` scripts are
+executable.
+
+```
+chmod 755 docketsync docketsync-run
+```
+
 ### Option 1: Running `docketsync` with a local Python3 installation
 
 You will need to following commands and resources available on your system to
