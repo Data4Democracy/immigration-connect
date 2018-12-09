@@ -73,7 +73,7 @@ Run `docketsync` from the command line:
 ./docketsync \
   --save-db comments_2018-11-06.db \
   --save-csv comments_2018-11-06.csv \
-  --posted_date 11/06/18
+  --posted-date 11/06/18
 ```
 
 This command will produce 3 files and a directory:
@@ -118,7 +118,7 @@ Run `docketsync` inside of a Docker container with the following command:
 ./docketsync-run \
   --save-db comments_2018-11-06.db \
   --save-csv comments_2018-11-06.csv \
-  --posted_date 11/06/18
+  --posted-date 11/06/18
 ```
 
 This command will produce 3 files and a directory:
