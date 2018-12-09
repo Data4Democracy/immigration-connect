@@ -84,8 +84,10 @@ run `docketsync` in the `d4d/docketsync` Docker container:
 * docker
 * API key from https://regulations.gov
 
-The `d4d/docketsync` Docker container has a pre-installed Python 3.6+
-interpreter and all of the packages necessary to run `docketsync`. The container also includes a copy of the `docketsync` program. You can build the Docker container by either using the `build` target in the Makefile:
+The `d4d/docketsync` Docker image has a pre-installed Python 3.6+ interpreter
+and all of the packages necessary to run `docketsync`. The image also
+includes a copy of the `docketsync` program. You can build the Docker image
+by either using the `build` target in the Makefile:
 
 ```
 make build
