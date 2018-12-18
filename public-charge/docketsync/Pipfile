@@ -1,0 +1,23 @@
+[[source]]
+
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+
+[dev-packages]
+
+pdbpp = "*"
+"flake8" = "*"
+ipython = "*"
+
+
+[packages]
+
+pandas = "*"
+requests = "*"
+
+
+[requires]
+
+python_version = "3.6"

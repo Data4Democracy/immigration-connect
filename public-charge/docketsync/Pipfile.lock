@@ -1,0 +1,179 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "d18f45556c603c1837f49e8ac82097a0bb64804c9d626098e2b8ee42bef50265"
+        },
+        "host-environment-markers": {
+            "implementation_name": "cpython",
+            "implementation_version": "3.6.4",
+            "os_name": "posix",
+            "platform_machine": "x86_64",
+            "platform_python_implementation": "CPython",
+            "platform_release": "4.15.0-39-generic",
+            "platform_system": "Linux",
+            "platform_version": "#42-Ubuntu SMP Tue Oct 23 15:48:01 UTC 2018",
+            "python_full_version": "3.6.4",
+            "python_version": "3.6",
+            "sys_platform": "linux"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.6"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "certifi": {
+            "hashes": [],
+            "version": "==2018.11.29"
+        },
+        "chardet": {
+            "hashes": [],
+            "version": "==3.0.4"
+        },
+        "idna": {
+            "hashes": [],
+            "version": "==2.7"
+        },
+        "numpy": {
+            "hashes": [],
+            "version": "==1.15.4"
+        },
+        "pandas": {
+            "hashes": [],
+            "version": "==0.23.4"
+        },
+        "python-dateutil": {
+            "hashes": [],
+            "version": "==2.7.5"
+        },
+        "pytz": {
+            "hashes": [],
+            "version": "==2018.7"
+        },
+        "requests": {
+            "hashes": [],
+            "version": "==2.20.1"
+        },
+        "six": {
+            "hashes": [],
+            "version": "==1.11.0"
+        },
+        "urllib3": {
+            "hashes": [],
+            "version": "==1.24.1"
+        }
+    },
+    "develop": {
+        "backcall": {
+            "hashes": [],
+            "version": "==0.1.0"
+        },
+        "configparser": {
+            "hashes": [],
+            "markers": "python_version < '3.2'",
+            "version": "==3.5.0"
+        },
+        "decorator": {
+            "hashes": [],
+            "version": "==4.3.0"
+        },
+        "enum34": {
+            "hashes": [],
+            "markers": "python_version == '2.7'",
+            "version": "==1.1.6"
+        },
+        "fancycompleter": {
+            "hashes": [],
+            "version": "==0.8"
+        },
+        "flake8": {
+            "hashes": [],
+            "version": "==3.6.0"
+        },
+        "ipython": {
+            "hashes": [],
+            "version": "==7.2.0"
+        },
+        "ipython-genutils": {
+            "hashes": [],
+            "version": "==0.2.0"
+        },
+        "jedi": {
+            "hashes": [],
+            "version": "==0.13.1"
+        },
+        "mccabe": {
+            "hashes": [],
+            "version": "==0.6.1"
+        },
+        "parso": {
+            "hashes": [],
+            "version": "==0.3.1"
+        },
+        "pathlib2": {
+            "hashes": [],
+            "markers": "python_version in '2.6 2.7 3.2 3.3'",
+            "version": "==2.3.3"
+        },
+        "pdbpp": {
+            "hashes": [],
+            "version": "==0.9.3"
+        },
+        "pexpect": {
+            "hashes": [],
+            "version": "==4.6.0"
+        },
+        "pickleshare": {
+            "hashes": [],
+            "version": "==0.7.5"
+        },
+        "prompt-toolkit": {
+            "hashes": [],
+            "version": "==2.0.7"
+        },
+        "ptyprocess": {
+            "hashes": [],
+            "version": "==0.6.0"
+        },
+        "pycodestyle": {
+            "hashes": [],
+            "version": "==2.4.0"
+        },
+        "pyflakes": {
+            "hashes": [],
+            "version": "==2.0.0"
+        },
+        "pygments": {
+            "hashes": [],
+            "version": "==2.3.0"
+        },
+        "scandir": {
+            "hashes": [],
+            "markers": "python_version < '3.5'",
+            "version": "==1.9.0"
+        },
+        "six": {
+            "hashes": [],
+            "version": "==1.11.0"
+        },
+        "traitlets": {
+            "hashes": [],
+            "version": "==4.3.2"
+        },
+        "wcwidth": {
+            "hashes": [],
+            "version": "==0.1.7"
+        },
+        "wmctrl": {
+            "hashes": [],
+            "version": "==0.3"
+        }
+    }
+}
