@@ -9,7 +9,12 @@ In a recent report, in their Policy Brief, AILA (American Immigration Lawyers As
 ## Contacts
 
 Project Lead
-* Burcu Kaniskan [@Burcu Kaniskan ](https://datafordemocracy.slack.com/messages/U94BSN2MC/)
+* Burcu Kaniskan [@Burcu Kaniskan](https://datafordemocracy.slack.com/messages/U94BSN2MC/)
+
+Project Members
+* Patrick W. Zimmerman [@Patrick Zimmerman](https://datafordemocracy.slack.com/messages/UBJ4QJ23B/)
+* Max Behrens [@Max Behrens](https://datafordemocracy.slack.com/messages/UFUPCE3RN)
+* Dan Gopstein
 
 **Slack channel:** [#immigration-connect](https://datafordemocracy.slack.com/messages/immigration-connect/)
 
@@ -40,10 +45,12 @@ https://egov.uscis.gov/processing-times/
 ## Skills
 
 * D3
-* JavaScript
+* Tableau
+* Shiny
+* Other Visualization packages / software
 * R
 * Python
-* Visualization
+* SQL
 * Data analysis
 * Promotion, or someone with connections in news media and/or with political campaigns/officeholders
 * Immigration law
