@@ -1,20 +1,9 @@
 #!/usr/bin/env python3
 
-import urllib.request
-import json
 import csv
 import sys
 
-def wget(url):
-  response = urllib.request.urlopen(url)
-
-  data = response.read()
-  text = data.decode('utf-8')
-
-  return text
-
-def wget_json(url):
-    return json.loads(wget(url))
+from uscis_util import wget_json
 
 forms = wget_json('https://egov.uscis.gov/processing-times/api/forms')
 
