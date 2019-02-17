@@ -44,11 +44,17 @@ def sanitize(text):
     return sanitized
 
 def parse_table(text):
-    proc_line_regex = re.compile(f"(({r_form})\s.*?(?:\s)({r_date}|{r_duration}))", re.MULTILINE | re.DOTALL)
+    proc_line_regex = re.compile(f"(^({r_form})(?:\n\n(.*?)\n\n(.*?)\n\n|.*?)({r_date}|{r_duration}))", re.MULTILINE | re.DOTALL)
 
     lines = []
     for match in proc_line_regex.findall(text):
-        lines.append({'form': match[1], 'time': match[2], 'capture_size': len(match[0])})
+        #print("11111111111111111111111111111")
+        #print(match[2])
+        #print("22222222222222222222222222222")
+        #print(match[3])
+        #print("33333333333333333333333333333")
+
+        lines.append({'form': match[1], 'title': re.sub('\n', ' ', match[2]), 'classification': re.sub('\n', ' ', match[3]), 'time': match[-1], 'capture_size': len(match[0])})
 
     return lines
 
@@ -64,11 +70,11 @@ def read_pdf(filename):
 with open('aila-pdf-times.csv', mode='w') as csv_file:
     csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-    csv_writer.writerow(['form', 'wait_days', 'ahead_of_schedule', 'processing_date', 'file', 'posted_date', 'capture_size'])
+    csv_writer.writerow(['form', 'title', 'classification' 'wait_days', 'ahead_of_schedule', 'processing_date', 'file', 'posted_date', 'capture_size'])
 
     i = 0
-    for filename in [DOWNLOAD_DIR+'tsc_13-04-03.pdf']:
-    #for filename in files:
+    #for filename in [DOWNLOAD_DIR+'tsc_13-04-03.pdf']:
+    for filename in files[0:100]:
         i += 1
         if i % 100 == 1:
             print("Parsing pdf %d of %d"%(i, len(files)))
@@ -99,10 +105,9 @@ with open('aila-pdf-times.csv', mode='w') as csv_file:
                 date_res = normed_date
                 wait_time = posted - normed_date
 
-
             #print('date', date_res, is_relative, line['time'])
 
-            csv_writer.writerow([line['form'], wait_time.days, is_relative, date_res.strftime("%Y-%m-%d"), basename, posted.strftime("%Y-%m-%d"), line['capture_size']])
+            csv_writer.writerow([line['form'], line['title'], line['classification'], wait_time.days, is_relative, date_res.strftime("%Y-%m-%d"), basename, posted.strftime("%Y-%m-%d"), line['capture_size']])
 
 print('Done parsing pdfs')
 
