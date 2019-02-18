@@ -1,4 +1,0 @@
-selenium==3.14.1
-sqlalchemy==1.2.13
-urllib3==1.24
-xvfbwrapper==0.2.9
