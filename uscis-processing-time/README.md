@@ -28,9 +28,10 @@ in an interactive map that was superimposed into U.S. Congressional maps with ti
 * Any interactive plots with time series data would work such as but not limited to Shiny in R or D3
 * Processing data for Forms I-90, I-485, I-751, and N-400 is reported as an interval of 2 numbers as part of a pilot project. The first number is the time it takes to complete 50% of cases (the median). The second number is the time it takes to complete 93% of cases. For non-pilot forms, USCIS uses the old method to calculate processing times but will add an upper limit that is generally 130% of the processing time.
 
-## Data Source
-US Customs & Immigration - https://egov.uscis.gov/processing-times/
-American Immigration Lawyers Association - https://www.aila.org/infonet/aila-policy-brief-uscis-processing-delays
+## Data Sources
+
+* US Customs & Immigration - https://egov.uscis.gov/processing-times/
+* American Immigration Lawyers Association - https://www.aila.org/infonet/aila-policy-brief-uscis-processing-delays
 
 ## Target Audiences
 * Members of Congress, State and City Legislatures, Governors, and Mayors
