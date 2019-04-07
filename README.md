@@ -9,7 +9,7 @@ We collect, analyze, and model data related to immigration-related issues. We ar
 Github Project Leads
 * Sharon Wragg [@sharon-anne](https://datafordemocracy.slack.com/messages/D9M456TLJ/)
 * Obinna Nnenanya [@kingobi](https://datafordemocracy.slack.com/messages/DCMJFF8SX/)
-* Julie T. Do [@dotj](https://datafordemocracy.slack.com/messages/DCMJBRGTD/)
+* Julie T. Do [@dotj](https://datafordemocracy.slack.com/messages/DCMJBRGTD/) (*on hiatus until ~June 2019*)
 
 Communications Lead
 * Xiao Wang (Stella) [@Stella](https://datafordemocracy.slack.com/messages/DCMJD269H/)
